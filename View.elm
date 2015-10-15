@@ -3,8 +3,14 @@ module View where
 import Model           exposing (..)
 import Html            exposing (..)
 import Html.Attributes exposing (..)
+import Html.Events     exposing (..)
+import Signal          exposing (..)
 
 renderMole : Mole -> Html
-renderMole mole = if mole.wackable
-  then img [src "http://www.fcps.edu/islandcreekes/ecology/Mammals/Eastern%20Mole/eastern1.jpg"] []
-  else img [src "http://cloud.graphicleftovers.com/20677/464110/mole-hole-in-brown-dirt-closeup.-shallow-dof.jpg"] []
+renderMole mole = let
+   wackableUrl   = "http://www.fcps.edu/islandcreekes/ecology/Mammals/Eastern%20Mole/eastern1.jpg"
+   unWackableUrl = "http://cloud.graphicleftovers.com/20677/464110/mole-hole-in-brown-dirt-closeup.-shallow-dof.jpg"
+   in
+   if mole.wackable
+     then img [src wackableUrl ] []
+     else img [src unWackableUrl, onClick messages.address { wackable = True }] []

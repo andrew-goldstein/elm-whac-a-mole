@@ -1,7 +1,9 @@
 module Main where
 
-import View exposing (..)
-import Html exposing (..)
+import Signal
+import Model exposing (..)
+import View  exposing (..)
+import Html  exposing (..)
 
-main : Html
-main = renderMole { wackable = True }
+main : Signal.Signal Html
+main = Signal.map renderMole messages.signal
