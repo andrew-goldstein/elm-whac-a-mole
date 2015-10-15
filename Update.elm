@@ -1,7 +1,6 @@
 module Update where
 
---import Model exposing (..)
+import Model exposing (..)
 
--- update
-foo : number
-foo = 3
+update : () -> Mole -> Mole
+update _ m = { m | wackable <- not m.wackable }

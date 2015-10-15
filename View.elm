@@ -10,7 +10,9 @@ renderMole : Mole -> Html
 renderMole mole = let
    wackableUrl   = "http://www.fcps.edu/islandcreekes/ecology/Mammals/Eastern%20Mole/eastern1.jpg"
    unWackableUrl = "http://cloud.graphicleftovers.com/20677/464110/mole-hole-in-brown-dirt-closeup.-shallow-dof.jpg"
-   in
-   if mole.wackable
-     then img [src wackableUrl ] []
-     else img [src unWackableUrl, onClick messages.address { wackable = True }] []
+   img' url      = img[ src url, onClick messages.address () ] []
+
+   in img' <|
+     if mole.wackable
+     then wackableUrl
+     else unWackableUrl

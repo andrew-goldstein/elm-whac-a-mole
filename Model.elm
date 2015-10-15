@@ -8,5 +8,5 @@ type alias Mole = { wackable : Wackable }
 moleInAHole : Mole
 moleInAHole = { wackable = False }
 
-messages : Mailbox Mole
-messages = mailbox moleInAHole
+messages : Mailbox ()
+messages = mailbox ()
