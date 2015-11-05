@@ -9,7 +9,9 @@ import Css.Transform2  exposing (..)
 import Css.Position    exposing (..)
 
 view : Game -> Html
-view {moles} = div [] <| renderMoles moles
+view {moles, score} = div [] <|
+  h1 [] [ text <| "Score: " ++ toString score ] :: renderMoles moles
+
 
 grid : Int
 grid = 300
@@ -29,15 +31,16 @@ renderMole hole mole = let
      then wackableUrl
      else unWackableUrl
 
+
 styleHole : Hole -> Attribute
 styleHole h =
   (\(x, y) -> style << position Absolute <| transform2 [translate2 x y] [])
   <| case h of
-    UL -> (0,          0)
-    UM -> (grid,       0)
-    UR -> (grid * 2,   0)
-    LL -> (scaleGrid 0.5,  grid)
-    LR -> (scaleGrid 1.5,  grid)
+    UL -> (0,             0)
+    UM -> (grid,          0)
+    UR -> (grid * 2,      0)
+    LL -> (scaleGrid 0.5, grid)
+    LR -> (scaleGrid 1.5, grid)
 
 
 renderMoles : List (Hole, Mole) -> List Html
