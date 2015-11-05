@@ -11,12 +11,18 @@ import Css.Position    exposing (..)
 view : Game -> Html
 view {moles} = div [] <| renderMoles moles
 
+grid : Int
+grid = 300
+
+scaleGrid : Float -> Int
+scaleGrid x = round <| toFloat grid * x
 
 renderMole : Hole -> Mole -> Html
 renderMole hole mole = let
    wackableUrl   = "http://www.fcps.edu/islandcreekes/ecology/Mammals/Eastern%20Mole/eastern1.jpg"
    unWackableUrl = "http://cloud.graphicleftovers.com/20677/464110/mole-hole-in-brown-dirt-closeup.-shallow-dof.jpg"
-   img' url      = img[ src url, onClick messages.address (Just hole) ] []
+   moleSize      = round <| toFloat grid / 1.618
+   img' url      = img[ src url, onClick messages.address (Just hole), width moleSize, height moleSize ] []
 
    in img' <|
      if mole.wackable
@@ -27,12 +33,11 @@ styleHole : Hole -> Attribute
 styleHole h =
   (\(x, y) -> style << position Absolute <| transform2 [translate2 x y] [])
   <| case h of
-    UL -> (0, 0)
-    UM -> (0, 100)
-    UR -> (0, 200)
-    LL -> (50, 0)
-    LR -> (50, 100)
-    _ -> (0,0)
+    UL -> (0,          0)
+    UM -> (grid,       0)
+    UR -> (grid * 2,   0)
+    LL -> (scaleGrid 0.5,  grid)
+    LR -> (scaleGrid 1.5,  grid)
 
 
 renderMoles : List (Hole, Mole) -> List Html
