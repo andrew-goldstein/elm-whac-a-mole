@@ -11,6 +11,8 @@ import Debug
 
 main : Signal.Signal Html
 main =
-  Signal.foldp update initialGame (Signal.merge messages.signal (Signal.map Random rand))
+  Signal.foldp update initialGame
+  (Signal.map (Debug.watch "Input")
+    (Signal.merge messages.signal (Signal.map Random rand)))
   |> Signal.map (Debug.watch "Game")
   |> Signal.map view
