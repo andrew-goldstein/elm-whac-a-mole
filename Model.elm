@@ -18,6 +18,10 @@ type alias Game =
   { moles : List (Hole, Mole)
   , score : Score }
 
+type Input = Wack Hole
+           | Random (List (Hole, Mole))
+           | EmptyInput
+
 initialGame : Game
 initialGame =
   { moles = [ (UL, moleInAHole)
@@ -27,5 +31,5 @@ initialGame =
             , (LR, moleInAHole) ]
   , score = 0 }
 
-messages : Mailbox (Maybe Hole)
-messages = mailbox Nothing
+messages : Mailbox Input
+messages = mailbox EmptyInput

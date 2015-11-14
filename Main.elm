@@ -11,7 +11,6 @@ import Debug
 
 main : Signal.Signal Html
 main =
-  Signal.filterMap identity UM messages.signal
-  |> Signal.foldp update initialGame
+  Signal.foldp update initialGame (Signal.merge messages.signal (Signal.map Random rand))
   |> Signal.map (Debug.watch "Game")
   |> Signal.map view
